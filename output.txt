@@ -1,0 +1,77 @@
+Test Cases:
+
+Test Case A: This is a simple test, it shows why starting with the largest segment helps eliminate some optimization problems. A greedy algorithm that doesn't start with the largest segment would return a compacted segment size of 12
+Running test case A
+Line segments: 4 6 10 
+	Starting with biggest segment of size 10 located at index 2
+	Iterating all line segments to the left of biggest segment
+	Left boundary: 0, Right boundary: 10, left_index: 0
+	Segment 1 of size 6 going right, left_index at 6, right boundary at 10
+	Left boundary: 0, Right boundary: 10, left_index: 6
+	Segment 0 of size 4 going right, left_index at 10, right boundary at 10
+	Iterating all line segments to the right of biggest segment
+Minimum compacted segment size is 10
+
+Test Case B: This is a more complicated test. This shows that it is more efficient to try to get as close as possible to an edge. If the algorithm tried to stay in the middle or just work its way towards a single edge the there wouldn't be enough room within the boundaries for larger segments when they appear.
+Running test case B
+Line segments: 16 4 2 18 4 5 9 20 12 8 18 2 19 
+	Starting with biggest segment of size 20 located at index 7
+	Iterating all line segments to the left of biggest segment
+	Left boundary: 0, Right boundary: 20, left_index: 0
+	Segment 6 of size 9 going right, left_index at 9, right boundary at 20
+	Left boundary: 0, Right boundary: 20, left_index: 9
+	Segment 5 of size 5 going left, left_index at 4, left boundary at 0
+	Left boundary: 0, Right boundary: 20, left_index: 4
+	Segment 4 of size 4 going left, left_index at 0, left boundary at 0
+	Left boundary: 0, Right boundary: 20, left_index: 0
+	Segment 3 of size 18 going right, left_index at 18, right boundary at 20
+	Left boundary: 0, Right boundary: 20, left_index: 18
+	Segment 2 of size 2 going right, left_index at 20, right boundary at 20
+	Left boundary: 0, Right boundary: 20, left_index: 20
+	Segment 1 of size 4 going left, left_index at 16, left boundary at 0
+	Left boundary: 0, Right boundary: 20, left_index: 16
+	Segment 0 of size 16 going left, left_index at 0, left boundary at 0
+	Iterating all line segments to the right of biggest segment
+	Left boundary: 0, Right boundary: 20, right_index: 20
+	Segment 8 of size 12 going left, right_index at 8, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 8
+	Segment 9 of size 8 going left, right_index at 0, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 0
+	Segment 10 of size 18 going right, right_index at 18, right boundary at 20
+	Left boundary: 0, Right boundary: 20, right_index: 18
+	Segment 11 of size 2 going right, right_index at 20, right boundary at 20
+	Left boundary: 0, Right boundary: 20, right_index: 20
+	Segment 12 of size 19 going left, right_index at 1, left boundary at 0
+Minimum compacted segment size is 20
+
+Test Case C: This test case shows when the algorithm can be inefficient. Occasionally it would be better to not try to get as close to an edge as possible, if a future edge would allow you to get even closer to an edge than you already are. The minimum compacted size of test case C is 20, however this algorithm returns 28. It would be better for the segment of size 4 to go right, so the segment of size 10 can go left and closer to an edge, which would leave more room for the segment of size 20
+Running test case C
+Line segments: 20 6 4 10 20 
+	Starting with biggest segment of size 20 located at index 0
+	Iterating all line segments to the left of biggest segment
+	Iterating all line segments to the right of biggest segment
+	Left boundary: 0, Right boundary: 20, right_index: 20
+	Segment 1 of size 6 going left, right_index at 14, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 14
+	Segment 2 of size 4 going right, right_index at 18, right boundary at 20
+	Left boundary: 0, Right boundary: 20, right_index: 18
+	Segment 3 of size 10 going left, right_index at 8, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 8
+	Segment 4 of size 20 going right, right_index at 28, right boundary at 28
+Minimum compacted segment size is 28
+
+Test Case D: This test case shows that the scenario in test case C is a rare occurrence because the segments have to be in a specific order of sizes for it to occur. If I switch the segments of size 4 and 6 then the algorithm calculates the correct minimum compacted size
+Running test case D
+Line segments: 20 4 6 10 20 
+	Starting with biggest segment of size 20 located at index 0
+	Iterating all line segments to the left of biggest segment
+	Iterating all line segments to the right of biggest segment
+	Left boundary: 0, Right boundary: 20, right_index: 20
+	Segment 1 of size 4 going left, right_index at 16, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 16
+	Segment 2 of size 6 going left, right_index at 10, left boundary at 0
+	Left boundary: 0, Right boundary: 20, right_index: 10
+	Segment 3 of size 10 going right, right_index at 20, right boundary at 20
+	Left boundary: 0, Right boundary: 20, right_index: 20
+	Segment 4 of size 20 going left, right_index at 0, left boundary at 0
+Minimum compacted segment size is 20
